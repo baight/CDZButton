@@ -25,13 +25,6 @@
     }
     return self;
 }
--(id)init{
-    self = [super init];
-    if(self){
-        [self _myInit];
-    }
-    return self;
-}
 -(void)_myInit{
     _interval = -1.0;
 }
