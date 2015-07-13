@@ -17,7 +17,10 @@ typedef enum{
 }CBType;
 
 @interface CDZButton : UIButton{
+    BOOL _normalImageChanged;
     UIImage* _normalImage;
+    
+    BOOL _normalBackgroundImageChanged;
     UIImage* _normalBackgroundImage;
 }
 

@@ -223,39 +223,47 @@
     if(_highlightBrotherViews){
         [self setSubViewsOfView:self.superview highlighted:selected];
     }
-    if(selected){
-        UIImage* i = [self imageForState:UIControlStateHighlighted];
-        UIImage* n = [self imageForState:UIControlStateNormal];
-        if(i== nil || i == n){
-            if(_normalImage == nil){
-                _normalImage = [self imageForState:UIControlStateNormal];
-            }
+    
+    UIImage* i = [self imageForState:UIControlStateHighlighted];
+    UIImage* n = [self imageForState:UIControlStateNormal];
+    if(i== nil || i == n){
+        if(selected){
             UIImage* image = [self imageForState:UIControlStateSelected];
             if(image){
+                if(_normalImage == nil){
+                    _normalImage = [self imageForState:UIControlStateNormal];
+                }
+                _normalImageChanged = YES;
                 [super setImage:image forState:UIControlStateNormal];
             }
-            
         }
-        i = [self backgroundImageForState:UIControlStateHighlighted];
-        n = [self backgroundImageForState:UIControlStateNormal];
-        if(i== nil || i == n){
-            if(_normalBackgroundImage == nil){
-                _normalBackgroundImage = [self backgroundImageForState:UIControlStateNormal];
-            }
-            UIImage* backgroundImage = [self backgroundImageForState:UIControlStateSelected];
-            if(backgroundImage){
-                [super setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+        else{
+            if(_normalImageChanged){
+                _normalImageChanged = NO;
+                [self setImage:_normalImage forState:UIControlStateNormal];
+                _normalImage = nil;
             }
         }
     }
-    else{
-        if(_normalImage){
-            [self setImage:_normalImage forState:UIControlStateNormal];
-            _normalImage = nil;
+    i = [self backgroundImageForState:UIControlStateHighlighted];
+    n = [self backgroundImageForState:UIControlStateNormal];
+    if(i== nil || i == n){
+        if(selected){
+            UIImage* backgroundImage = [self backgroundImageForState:UIControlStateSelected];
+            if(backgroundImage){
+                if(_normalBackgroundImage == nil){
+                    _normalBackgroundImage = [self backgroundImageForState:UIControlStateNormal];
+                }
+                _normalBackgroundImageChanged = YES;
+                [super setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+            }
         }
-        if(_normalBackgroundImage){
-            [self setBackgroundImage:_normalBackgroundImage forState:UIControlStateNormal];
-            _normalBackgroundImage = nil;
+        else{
+            if(_normalBackgroundImageChanged){
+                _normalBackgroundImageChanged = NO;
+                [self setBackgroundImage:_normalBackgroundImage forState:UIControlStateNormal];
+                _normalBackgroundImage = nil;
+            }
         }
     }
 }
