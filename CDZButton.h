@@ -30,6 +30,8 @@ typedef enum{
 // 自己state改变时，是否将父容器的所有子视图 的 state 设置成和自己一样的，默认否
 @property (nonatomic, assign) BOOL highlightBrotherViews;
 
+@property (nonatomic, weak) UIButton* associatedButton; // associatedButton会和自己的状态保持一致（如高亮状态、选择状态）
+
 @end
 
 // backgroundImage 从中间水平拉伸

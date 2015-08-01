@@ -217,11 +217,17 @@
     if(_highlightBrotherViews){
         [self setSubViewsOfView:self.superview highlighted:highlighted];
     }
+    if(_associatedButton){
+        [_associatedButton setHighlighted:highlighted];
+    }
 }
 -(void)setSelected:(BOOL)selected{
     [super setSelected:selected];
     if(_highlightBrotherViews){
         [self setSubViewsOfView:self.superview highlighted:selected];
+    }
+    if(_associatedButton){
+        [_associatedButton setSelected:selected];
     }
     
     UIImage* i = [self imageForState:UIControlStateHighlighted];
