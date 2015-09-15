@@ -211,6 +211,12 @@
         _normalBackgroundImage = image;
     }
 }
+- (void)setTitle:(NSString *)title forState:(UIControlState)state{
+    [super setTitle:title forState:state];
+    if(state == UIControlStateNormal){
+        _normalTitle = title;
+    }
+}
 
 -(void)setHighlighted:(BOOL)highlighted{
     [super setHighlighted:highlighted];
@@ -269,6 +275,27 @@
                 _normalBackgroundImageChanged = NO;
                 [self setBackgroundImage:_normalBackgroundImage forState:UIControlStateNormal];
                 _normalBackgroundImage = nil;
+            }
+        }
+    }
+    
+    NSString* ht = [self titleForState:UIControlStateHighlighted];
+    NSString* nt = [self titleForState:UIControlStateNormal];
+    if(ht == nil || ht == nt){
+        if(selected){
+            NSString* title = [self titleForState:UIControlStateSelected];
+            if(title){
+                if(_normalTitle == nil){
+                    _normalTitle = [self titleForState:UIControlStateNormal];
+                }
+                _normalTitleChange = YES;
+                [super setTitle:title forState:UIControlStateNormal];
+            }
+        }
+        else{
+            if(_normalTitleChange){
+                _normalTitleChange = NO;
+                [self setTitle:_normalTitle forState:UIControlStateNormal];
             }
         }
     }
